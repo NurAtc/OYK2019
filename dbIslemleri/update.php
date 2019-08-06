@@ -1,45 +1,26 @@
 <?php
-  include("db.php");
+include("db.php");
 
-  if(isset($_POST["adi"]))
-  {
-    $SQL = sprintf("UPDATE db_deneme_rehber SET adi='%s', soyadi='%s', sehir='%s' WHERE id='%s'", $_POST["adi"], $_POST["soyadi"], $_POST["sehir"], $_POST["id"]);
-    $rows = mysqli_query($db, $SQL);
-    echo "Kayit güncellendi..";
-  }
+if(isset($_POST["name"]))
+{
+  $SQL = "UPDATE db_deneme_rehber SET name='{$_POST["name"]}', surname='{$_POST["surname"]}', city='{$_POST["city"]}' WHERE id='{$_POST["id"]}'";
+  $rows = mysqli_query($db, $SQL);
+  echo "Updated.";
+}
 
-  // Buradaki işlemleri, kullanıcının bilgileri textboxta hazır gelsin diye yapıyoruz.
-  
-  // Adres satırından gelen ID bilgisini al.
-  $ID    = $_GET["id"];
-
-  // Veri tabanından o ID'ye karşılık gelen satırı çek
-  $SQL   = "SELECT id, adi, soyadi, sehir FROM db_deneme_rehber WHERE id=$ID";
-
-  // Sorgumuzu MySQL'e Gönder
-  $rows  = mysqli_query($db, $SQL);
-
-  // Gelen TEK satırlık cevabı row adlı değişkene yerleştir
-  $row    = mysqli_fetch_assoc($rows);
-
-  $id     = $row["id"];
-  $adi    = $row["adi"];
-  $soyadi = $row["soyadi"];
-  $sehir  = $row["sehir"];
-
+$SQL = "SELECT * FROM db_deneme_rehber WHERE id='{$_GET["id"]}'";
+// echo $SQL;
+$rows = mysqli_query($db, $SQL);
+$row = mysqli_fetch_assoc($rows);
+echo "<h1>{$row["name"]} {$row["surname"]}</h1>";
 ?>
-<h1><?php echo $adi . " " . $soyadi;?></h1>
-<h3>Kayıt Güncelleme</h3>
 
+<h3>Update Record</h3>
 <form method="post">
-  ID: <?php echo $id;?>
-  <input type="hidden" name="id" value="<?php echo $id;?>">
-  <br /><br />
-  Adı:<input type="text" name="adi" value="<?php echo $adi;?>">
-  <br /><br />
-  Soyadı:<input type="text" name="soyadi" value="<?php echo $soyadi;?>">
-  <br /><br />
-  Şehir:<input type="text" name="sehir" value="<?php echo $sehir;?>">
-  <br /><br />
-  <input type="submit" name="" value="Güncelle (update)">
+  ID: <?php echo $row["id"]; ?>
+  <input type="hidden" name="id" value="<?php echo $row["id"]; ?>" /><br />
+  Name: <input type="text" name="name" value="<?php echo $row["name"];?>"/><br />
+  Surname: <input type="text" name="surname" value="<?php echo $row["surname"];?>"/><br />
+  City: <input type="text" name="city" value="<?php echo $row["city"];?>"/><br />
+  <input type="submit" name="uButton" value="UPDATE" />
 </form>

@@ -1,12 +1,12 @@
 <?php
-$servername = "localhost";
-$username   = "root";
-$password   = "root";
-$dbname     = "bilgiler";
 
-// Veritabanı bağlantısının oluşturulması
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "databaseName";
+
 $db = mysqli_connect($servername, $username, $password, $dbname);
-// Varsa, bağlantı hatasının ekrana yazdırılarak programın sonlandırılması
-if (!$db) { die("Hata oluştu: " . mysqli_connect_error()); }
-//echo "Bağlantı tamam!";
+if(!$db) die("Hata oluştu.." . mysqli_connect_error());
+
+mysqli_query($db, "set names 'utf8'");
 ?>

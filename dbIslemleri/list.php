@@ -1,37 +1,30 @@
 <?php
 include("db.php");
 ?>
-<h1>Kayit Listele</h1>
-<table border=1 cellpadding=5 cellspacing=0>
+
+<h1>Kayıt Liste</h1>
+<table border="1" cellpadding="5" cellspacing="0">
   <tr>
-    <td>KayıtNo</td>
-    <td>ADI</td>
-    <td>SOYADI</td>
-    <td>ŞEHİR</td>
-    <td>Göster</td>
-    <td>Güncelle</td>
-    <td>Sil</td>
+    <td>KayitNo</td>
+    <td>Name</td>
+    <td>Surname</td>
+    <td>City</td>
+    <td>Show</td>
+    <td>Update</td>
+    <td>Delete</td>
   </tr>
-<?php
-  $SQL = "SELECT id, adi, soyadi, sehir FROM db_deneme_rehber ORDER BY adi, soyadi, sehir";
-  $rows = mysqli_query($db, $SQL);
-
-  while($row = mysqli_fetch_assoc($rows)) // kayıt adedince döner
-  {
-    echo sprintf("
-    <tr>
-        <td>%s</td>
-        <td>%s</td>
-        <td>%s</td>
-        <td>%s</td>
-
-        <td><a href='show.php?id=%s'>Göster</a></td>
-        <td><a href='update.php?id=%s'>Güncelle</a></td>
-        <td><a href='delete.php?id=%s'>Sil</a></td>
-
-      </tr>",
-      $row["id"], $row["adi"], $row["soyadi"], $row["sehir"],
-      $row["id"], $row["id"], $row["id"]       );
-  }
-?>
+  <?php
+    $SQL = "SELECT id, name, surname, city FROM db_deneme_rehber ORDER BY name";
+    $rows = mysqli_query($db, $SQL);
+    while($row = mysqli_fetch_assoc($rows))
+      echo "<tr>
+              <td>{$row["id"]}</td>
+              <td>{$row["name"]}</td>
+              <td>{$row["surname"]}</td>
+              <td>{$row["city"]}</td>
+              <td><a href='show.php?id={$row['id']}'>Show</a></td>
+              <td><a href='update.php?id={$row['id']}'>Güncelle</a></td>
+              <td><a href='delete.php?id={$row['id']}'>Delete</a></td>
+           </tr>";
+  ?>
 </table>

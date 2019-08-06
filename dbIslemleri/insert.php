@@ -1,26 +1,18 @@
 <?php
 include("db.php");
 
-if(isset($_POST["adi"])) // form POST edilmiş
+if(isset($_POST["name"]))
 {
-   // insert işlemi için sql hazırlayalım.
-   $SQL = sprintf("INSERT INTO db_deneme_rehber SET adi='%s', soyadi='%s', sehir='%s'", $_POST["adi"], $_POST["soyadi"], $_POST["sehir"]);
-
-   // SQL komutunu MySQL veritabanı üzerinde çalıştır.
-   $rows = mysqli_query($db, $SQL);
-
-   echo "<h4>Kayıt eklendi...</h4>";
-
- }
+  $SQL = "INSERT INTO db_deneme_rehber SET name = '{$_POST["name"]}', surname = '{$_POST["surname"]}', city = '{$_POST["city"]}'";
+  $rows = mysqli_query($db, $SQL);
+  echo "<h4>Insertion completed.</h4>";
+}
 ?>
 
-<h1>Kayıt Ekleme</h1>
+<h1>Insertion</h1>
 <form method="post">
-  Adı:<input type="text" name="adi">
-  <br /><br />
-  Soyadı:<input type="text" name="soyadi">
-  <br /><br />
-  Şehir:<input type="text" name="sehir">
-  <br /><br />
-  <input type="submit" name="" value="Kayıt Ekle (insert)">
+  Name: <input type="text" name="name" /><br />
+  Surname: <input type="text" name="surname" /><br />
+  City: <input type="text" name="city" /><br />
+  <input type="submit" value="Sign Up" />
 </form>

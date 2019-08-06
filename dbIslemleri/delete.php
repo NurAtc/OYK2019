@@ -1,53 +1,26 @@
 <?php
-  include("db.php");
+include("db.php");
 
-  // Adres satırından gelen ID bilgisini al.
-  $ID    = $_GET["id"];
-
-  if( isset($_POST["onay"]) ) {
-    // Buraya geliyorsak, form gönderilmiş demektir.
-
-    if( $_POST["onay"] == "SİL") {
-      // Silme için gerekli SQL'i hazırlayalım
-      $SQL = "DELETE FROM db_deneme_rehber WHERE id='{$_POST["id"]}' ";
-      // Kaydı siliyoruz..
-      $temp  = mysqli_query($db, $SQL);
-      echo "Kayıt silindi";
-      die();
-    } else {
-      echo "Onay verilmedi. Silme YAPILMADI !!!!";
-    }
-
+if(isset($_POST["id"])){
+  if($_POST["dTextbox"] == "DLT"){
+    $SQL = "DELETE FROM db_deneme_rehber WHERE id='{$_POST["id"]}'";
+    $rows = mysqli_query($db, $SQL);
+    echo "Deleted..";
+    die();
   }
+  else echo "Not Confirmed!";
+}
 
-  // Veri tabanından o ID'ye karşılık gelen satırı çek
-  $SQL   = "SELECT id, adi, soyadi, sehir FROM db_deneme_rehber WHERE id=$ID";
-
-  // Sorgumuzu MySQL'e Gönder
-  $rows  = mysqli_query($db, $SQL);
-
-  // Gelen TEK satırlık cevabı row adlı değişkene yerleştir
-  $row    = mysqli_fetch_assoc($rows);
-  $id     = $row["id"];
-  $adi    = $row["adi"];
-  $soyadi = $row["soyadi"];
-  $sehir  = $row["sehir"];
-
-  echo "
-    <h1>$adi $soyadi</h1>
-
-    KayıtNo: $id<br />
-    Adı: $adi<br />
-    Soyadı: $soyadi<br />
-    Şehir: $sehir<br />
-  ";
-
+$SQL = "SELECT * FROM db_deneme_rehber WHERE id='{$_GET["id"]}'";
+//echo $SQL;
+$rows = mysqli_query($db, $SQL);
+$row = mysqli_fetch_assoc($rows);
+//print_r($row);
+echo "<h1>{$row["name"]} {$row["surname"]}</h1>ID: {$row["id"]}<br />Name: {$row["name"]}<br />Surname: {$row["surname"]}<br />City: {$row["city"]}";
 ?>
 
 <form method="post">
-  <input type="hidden" name="id" value="<?php echo $id;?>">
-  <br />
-  BU KİŞİYİ SİL:<input type="text" name="onay" placeholder="silmek için SİL yazınız.">
-  <br /><br />
-  <input type="submit" name="" value="SİL !">
+  <input type="hidden" name="id" value="<?php echo $row["id"];?>"/>
+  Delete this person: <input type="text" name="dTextbox" value="" placeholder="Type DLT to delete"><br /><br />
+  <input type="submit" name="dButton" value="Delete" />
 </form>

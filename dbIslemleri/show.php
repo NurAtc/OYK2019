@@ -1,26 +1,9 @@
 <?php
 include("db.php");
 
-// adres satırından gelen id bilgisini al
-$ID = $_GET["id"];
-
-// Veri tabanından o ID'ye karşılık gelen satırı çek
-$SQL = "SELECT id,adi, soyadi, sehir FROM db_deneme_rehber WHERE id=$ID";
-
-// Sorgumuzu MySQL'e gönder.
+$SQL = "SELECT * FROM db_deneme_rehber WHERE id='{$_GET["id"]}'";
 $rows = mysqli_query($db, $SQL);
-
-// Gelen TEK satırlık cevabı row adlı değişkene yerleştir
 $row = mysqli_fetch_assoc($rows);
-$id = $row["id"];
-$adi = $row["adi"];
-$soyadi = $row["soyadi"];
-$sehir = $row["sehir"];
 
-echo "<h1>$adi $soyadi</h1>
-  Adı: $adi<br />
-  Soyadı: $soyadi<br />
-  Sehir: $sehir<br />
-";
-
+echo "<h1>{$row["name"]} {$row["surname"]}</h1>Name: {$row["name"]}<br />Surname: {$row["surname"]}<br />City: {$row["city"]}";
 ?>
