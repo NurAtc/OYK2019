@@ -1,6 +1,7 @@
 <h2>Add Two Numbers - POST Method</h2>
 
 <?php
+
 if(isset($_POST["fNo"])){
   $sum = $_POST["fNo"]+$_POST["sNo"];
   echo "<h1>{$_POST["fNo"]} + {$_POST["sNo"]} = $sum</h1>";
