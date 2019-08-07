@@ -1,6 +1,7 @@
 <h2>Add Two Numbers - GET Method</h2>
 
 <?php
+
 if(isset($_GET["fNo"])){
   $sum = $_GET["fNo"]+$_GET["sNo"];
   echo "<h1>{$_GET["fNo"]} + {$_GET["sNo"]} = $sum</h1>";
