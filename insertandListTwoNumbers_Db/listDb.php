@@ -5,6 +5,7 @@
   </tr>
 
 <?php
+
 require("db.php");
 $SQL = "SELECT sayi1, sayi2 FROM sayilar ORDER BY id DESC";
 $rows = mysqli_query($db, $SQL);
